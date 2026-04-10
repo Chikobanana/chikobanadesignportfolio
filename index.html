@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Immanuel Chikonde — Design Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #1a1108;
+    --cream: #f5f0e8;
+    --sand: #e8e0d0;
+    --gold: #c8902a;
+    --gold-light: #e8b84b;
+    --rust: #b04a1e;
+    --muted: #7a6e5f;
+    --white: #fdfaf5;
+    --border: rgba(26,17,8,0.12);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 3rem;
+    background: rgba(245,240,232,0.88);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.85rem; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--muted); text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 8rem 3rem 4rem;
+    gap: 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -10%; right: -5%;
+    width: 55vw; height: 55vw;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(200,144,42,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-text { position: relative; z-index: 1; }
+  .hero-eyebrow {
+    font-size: 0.78rem; font-weight: 500; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 1.2rem;
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .hero-eyebrow::before {
+    content: ''; display: block; width: 36px; height: 1px; background: var(--gold);
+  }
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 5vw, 5.5rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+  }
+  .hero-name em {
+    font-style: italic;
+    color: var(--rust);
+  }
+  .hero-bio {
+    font-size: 1.05rem; line-height: 1.7; color: var(--muted);
+    max-width: 480px; margin-bottom: 2.5rem;
+  }
+  .hero-cta {
+    display: inline-flex; align-items: center; gap: 0.75rem;
+    padding: 0.9rem 2rem;
+    background: var(--ink); color: var(--cream);
+    text-decoration: none; font-size: 0.88rem; font-weight: 500;
+    letter-spacing: 0.05em; text-transform: uppercase;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .hero-cta:hover { background: var(--gold); color: var(--ink); }
+  .hero-cta-arrow { font-size: 1rem; transition: transform 0.2s; }
+  .hero-cta:hover .hero-cta-arrow { transform: translateX(4px); }
+
+  .hero-stats {
+    display: flex; gap: 2.5rem; margin-top: 3rem; padding-top: 2.5rem;
+    border-top: 1px solid var(--border);
+  }
+  .stat-num {
+    font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700;
+    color: var(--ink);
+  }
+  .stat-label { font-size: 0.78rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
+
+  .hero-image-col {
+    position: relative; display: flex; align-items: center; justify-content: center;
+  }
+  .hero-avatar {
+    width: min(380px, 45vw);
+    aspect-ratio: 3/4;
+    background: var(--sand);
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-avatar img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+  }
+  .avatar-placeholder {
+    text-align: center; color: var(--muted);
+  }
+  .avatar-placeholder .icon { font-size: 4rem; margin-bottom: 0.5rem; opacity: 0.4; }
+  .avatar-placeholder p { font-size: 0.8rem; max-width: 160px; line-height: 1.5; }
+
+  .hero-badge {
+    position: absolute; bottom: -1.2rem; left: -1.5rem;
+    background: var(--gold); color: var(--ink);
+    padding: 0.8rem 1.5rem;
+    font-size: 0.8rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase;
+  }
+
+  /* ── ABOUT STRIP ── */
+  .about-strip {
+    background: var(--ink); color: var(--cream);
+    padding: 3.5rem 3rem;
+    display: flex; gap: 3rem; align-items: center; flex-wrap: wrap;
+  }
+  .about-strip h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem; min-width: 220px;
+  }
+  .about-strip p { font-size: 1rem; line-height: 1.8; color: rgba(245,240,232,0.75); max-width: 680px; }
+
+  /* ── SECTION HEADER ── */
+  .section-header {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    margin-bottom: 3rem; gap: 1rem; flex-wrap: wrap;
+  }
+  .section-tag {
+    font-size: 0.75rem; font-weight: 500; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--gold);
+    display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.6rem;
+  }
+  .section-tag::before { content: ''; display: block; width: 24px; height: 1px; background: var(--gold); }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    line-height: 1.1;
+  }
+  .section-count {
+    font-family: 'Playfair Display', serif;
+    font-size: 5rem; color: var(--sand); line-height: 1;
+    font-weight: 700; user-select: none;
+  }
+
+  /* ── WORKS ── */
+  .works { padding: 6rem 3rem; }
+
+  .filter-bar {
+    display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 3rem;
+  }
+  .filter-btn {
+    padding: 0.45rem 1.1rem;
+    border: 1px solid var(--border);
+    background: transparent; cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem; font-weight: 500; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--muted);
+    transition: all 0.2s;
+  }
+  .filter-btn:hover, .filter-btn.active {
+    background: var(--ink); color: var(--cream); border-color: var(--ink);
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1.2rem;
+  }
+
+  /* --- gallery card slot widths --- */
+  .work-card { position: relative; overflow: hidden; cursor: pointer; background: var(--sand); }
+  .work-card:nth-child(1)  { grid-column: span 7; }
+  .work-card:nth-child(2)  { grid-column: span 5; }
+  .work-card:nth-child(3)  { grid-column: span 4; }
+  .work-card:nth-child(4)  { grid-column: span 4; }
+  .work-card:nth-child(5)  { grid-column: span 4; }
+  .work-card:nth-child(6)  { grid-column: span 5; }
+  .work-card:nth-child(7)  { grid-column: span 7; }
+  .work-card:nth-child(8)  { grid-column: span 6; }
+  .work-card:nth-child(9)  { grid-column: span 6; }
+  .work-card:nth-child(10) { grid-column: span 4; }
+  .work-card:nth-child(11) { grid-column: span 4; }
+  .work-card:nth-child(12) { grid-column: span 4; }
+
+  .work-card .img-wrap {
+    width: 100%; aspect-ratio: 4/3;
+    overflow: hidden;
+    background: var(--sand);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .work-card:nth-child(1) .img-wrap,
+  .work-card:nth-child(7) .img-wrap { aspect-ratio: 16/9; }
+
+  .work-card .img-wrap img {
+    width: 100%; height: 100%; object-fit: cover;
+    display: block;
+    transition: transform 0.55s ease;
+  }
+  .work-card:hover .img-wrap img { transform: scale(1.04); }
+
+  /* placeholder when no image */
+  .img-placeholder {
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 0.5rem; color: var(--muted); font-size: 0.78rem; text-align: center; padding: 1rem;
+  }
+  .img-placeholder .ph-icon { font-size: 2.2rem; opacity: 0.35; }
+
+  .work-card .card-info {
+    padding: 1rem 1.1rem 1.1rem;
+    background: var(--white);
+    border-top: 1px solid var(--border);
+  }
+  .work-tag {
+    display: inline-block;
+    font-size: 0.68rem; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 0.4rem;
+  }
+  .work-title { font-weight: 500; font-size: 0.95rem; color: var(--ink); }
+
+  /* hidden cards for filtering */
+  .work-card.hidden { display: none; }
+
+  /* ── LIGHTBOX ── */
+  .lightbox {
+    display: none; position: fixed; inset: 0; z-index: 999;
+    background: rgba(26,17,8,0.92);
+    align-items: center; justify-content: center;
+    padding: 2rem;
+  }
+  .lightbox.open { display: flex; }
+  .lightbox-inner {
+    max-width: 1000px; width: 100%; position: relative;
+    animation: lbIn 0.25s ease;
+  }
+  @keyframes lbIn { from { opacity: 0; transform: scale(0.97); } to { opacity: 1; transform: scale(1); } }
+  .lightbox-inner img {
+    width: 100%; max-height: 80vh; object-fit: contain; display: block;
+  }
+  .lightbox-meta {
+    padding: 1rem 1.5rem;
+    background: var(--cream); display: flex; justify-content: space-between; align-items: center;
+  }
+  .lightbox-meta h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; }
+  .lightbox-meta span { font-size: 0.8rem; color: var(--muted); }
+  .lb-close {
+    position: absolute; top: -2.5rem; right: 0;
+    background: none; border: none; color: var(--cream); font-size: 1.6rem;
+    cursor: pointer; line-height: 1; padding: 0.3rem;
+  }
+  .lb-close:hover { color: var(--gold); }
+
+  /* ── SKILLS ── */
+  .skills { padding: 6rem 3rem; background: var(--white); }
+  .skills-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem; margin-top: 3rem;
+  }
+  .skill-card {
+    padding: 2rem;
+    border: 1px solid var(--border);
+    background: var(--cream);
+    position: relative; overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .skill-card:hover { border-color: var(--gold); transform: translateY(-2px); }
+  .skill-card::before {
+    content: attr(data-num);
+    position: absolute; top: 0.6rem; right: 1rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem; color: var(--sand); line-height: 1;
+    font-weight: 700; user-select: none;
+  }
+  .skill-icon { font-size: 1.6rem; margin-bottom: 1rem; }
+  .skill-name { font-weight: 500; font-size: 1rem; margin-bottom: 0.5rem; }
+  .skill-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+
+  /* ── CONTACT ── */
+  .contact {
+    padding: 6rem 3rem;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;
+  }
+  .contact h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 4vw, 4rem); line-height: 1.1;
+    margin-bottom: 1.5rem;
+  }
+  .contact h2 em { font-style: italic; color: var(--rust); }
+  .contact p { font-size: 1rem; color: var(--muted); line-height: 1.8; margin-bottom: 2rem; }
+  .contact-links { display: flex; flex-direction: column; gap: 1rem; }
+  .contact-link {
+    display: flex; align-items: center; gap: 1rem;
+    text-decoration: none; color: var(--ink);
+    padding: 1rem 1.3rem;
+    border: 1px solid var(--border);
+    transition: border-color 0.2s, background 0.2s;
+    font-size: 0.9rem;
+  }
+  .contact-link:hover { border-color: var(--gold); background: rgba(200,144,42,0.06); }
+  .contact-link .cl-icon { font-size: 1.2rem; width: 24px; }
+  .contact-link strong { display: block; font-weight: 500; }
+  .contact-link span { font-size: 0.78rem; color: var(--muted); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink); color: var(--cream);
+    padding: 2rem 3rem;
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+  }
+  footer p { font-size: 0.82rem; color: rgba(245,240,232,0.5); }
+  footer a { color: var(--gold-light); text-decoration: none; }
+
+  /* ── UPLOAD HINT ── */
+  .upload-hint {
+    margin: 4rem 3rem;
+    padding: 2rem;
+    border: 1.5px dashed var(--border);
+    text-align: center; color: var(--muted);
+  }
+  .upload-hint h3 { font-family: 'Playfair Display', serif; margin-bottom: 0.5rem; color: var(--ink); }
+  .upload-hint code { background: var(--sand); padding: 0.15rem 0.4rem; font-size: 0.83rem; border-radius: 3px; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1.5rem; }
+    .hero { grid-template-columns: 1fr; padding: 7rem 1.5rem 3rem; gap: 3rem; }
+    .hero-image-col { order: -1; }
+    .hero-avatar { width: min(300px, 80vw); }
+    .about-strip { padding: 3rem 1.5rem; flex-direction: column; }
+    .works, .skills, .contact { padding: 4rem 1.5rem; }
+    .gallery-grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .work-card { grid-column: span 1 !important; }
+    .contact { grid-template-columns: 1fr; gap: 3rem; }
+    footer { padding: 1.5rem; }
+  }
+
+  @media (max-width: 520px) {
+    .gallery-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#top">IC</a>
+  <ul class="nav-links">
+    <li><a href="#works">Works</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-text">
+    <p class="hero-eyebrow">Design Portfolio</p>
+    <h1 class="hero-name">Immanuel<br><em>Chikonde</em></h1>
+    <p class="hero-bio">
+      Graphic designer, photographer &amp; creative technologist based in Lusaka, Zambia.
+      I blend visual design with technical skill to create work that's both beautiful and purposeful.
+    </p>
+    <a class="hero-cta" href="#works">View My Work <span class="hero-cta-arrow">→</span></a>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">5+</div>
+        <div class="stat-label">Years creating</div>
+      </div>
+      <div>
+        <div class="stat-num">3</div>
+        <div class="stat-label">Languages spoken</div>
+      </div>
+      <div>
+        <div class="stat-num">∞</div>
+        <div class="stat-label">Ideas in progress</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-image-col">
+    <div class="hero-avatar">
+      <!--
+        TO ADD YOUR PHOTO:
+        1. Put your photo in the /images/ folder on GitHub (e.g. images/profile.jpg)
+        2. Replace the <div class="avatar-placeholder"> below with:
+           <img src="images/profile.jpg" alt="Immanuel Chikonde" />
+      -->
+      <div class="avatar-placeholder">
+        <div class="icon">📷</div>
+        <p>Replace with your photo<br/>(see comments in code)</p>
+      </div>
+    </div>
+    <div class="hero-badge">Lusaka, Zambia</div>
+  </div>
+</section>
+
+<!-- ABOUT STRIP -->
+<div class="about-strip">
+  <h2>About<br/>Me</h2>
+  <p>
+    I'm a recent ICT with Education graduate from Chalimbana University with a passion for graphic design,
+    photography, and web development. I've worked across schools, tech companies, and advisory firms — always
+    bringing a creative eye and a technical mindset. I'm also a cybersecurity enthusiast who believes great
+    design and strong systems go hand in hand.
+  </p>
+</div>
+
+<!-- WORKS -->
+<section class="works" id="works">
+  <div class="section-header">
+    <div>
+      <div class="section-tag">Portfolio</div>
+      <h2 class="section-title">Selected<br/>Works</h2>
+    </div>
+    <div class="section-count">01</div>
+  </div>
+
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="filterGallery('all', this)">All</button>
+    <button class="filter-btn" onclick="filterGallery('graphic', this)">Graphic Design</button>
+    <button class="filter-btn" onclick="filterGallery('photo', this)">Photography</button>
+    <button class="filter-btn" onclick="filterGallery('web', this)">Web / UI</button>
+    <button class="filter-btn" onclick="filterGallery('branding', this)">Branding</button>
+  </div>
+
+  <div class="gallery-grid" id="gallery">
+
+    <!--
+    ═══════════════════════════════════════════════════════════════
+    HOW TO ADD YOUR IMAGES (GitHub Pages)
+    ───────────────────────────────────────────────────────────────
+    1. Create an "images" folder in your GitHub repository.
+    2. Upload your design images there (e.g. images/poster1.jpg).
+    3. For each card below, replace the <div class="img-placeholder"> 
+       section with:
+       <img src="images/YOUR-FILE.jpg" alt="Description" />
+    4. Update the data-category, work-tag text, and work-title text.
+    5. You can add or remove cards — just keep the class structure.
+    ═══════════════════════════════════════════════════════════════
+    -->
+
+    <div class="work-card" data-category="graphic" onclick="openLightbox(this)">
+      <div class="img-wrap">
+        <!-- REPLACE BELOW WITH: <img src="images/your-image.jpg" alt="Project name" /> -->
+        <div class="img-placeholder"><span class="ph-icon">🖼️</span>graphic-design-1.jpg</div>
+      </div>
+      <div class="card-info">
+        <span class="work-tag">Graphic Design</span>
+        <div class="work-title">Poster / Flyer Design</div>
+      </div>
+    </div>
+
+    <div class="work-card" data-category="photo" onclick="openLightbox(this)">
+      <div class="img-wrap">
+        <div class="img-placeholder"><span class="ph-icon">📸</span>photography-1.jpg</div>
+      </div>
+      <div class="card-info">
+        <span class="work-tag">Photography</span>
+        <div class="work-title">Portrait Series</div>
+      </div>
+    </div>
+
+    <div class="work-card" data-category="branding" onclick="openLightbox(this)">
+      <div class="img-wrap">
+        <div class="img-placeholder"><span class="ph-icon">✏️</span>branding-1.jpg</div>
+      </div>
+      <div class="card-info">
+        <span class="work-tag">Branding</span>
+        <div class="work-title">Logo &amp; Identity</div>
+      </div>
+    </div>
+
+    <div class="work-card" data-category="web" onclick="openLightbox(this)">
+      <div class="img-wrap">
+        <div class="img-placeholder"><span class="ph-icon">💻</span>web-ui-1.jpg</div>
+      </div>
+      <div class="card-info">
+        <span class="work-tag">Web / UI</span>
+        <div class="work-title">Website Design</div>
+      </div>
+    </div>
+
+    <div class="work-card" data-category="graphic" onclick="openLightbox(this)">
+      <div class="img-wrap">
+        <div class="img-placeholder"><span class="ph-icon">🎨</span>graphic-design-2.jpg</div>
+      </div>
+      <div class="card-info">
+        <span class="work-tag">Graphic Design</span>
+        <div class="work-title">Social Media Graphics</div>
+      </div>
+    </div>
+
+    <div class="work-card" data-category="photo" onclick="openLightbox(this)">
+      <div class="img-wrap">
+        <div class="img-placeholder"><span class="ph-icon">🌅</span>photography-2.jpg</div>
+      </div>
+      <div class="card-info">
+        <span class="work-tag">Photography</span>
+        <div class="work-title">Landscape &amp; Outdoor</div>
+      </div>
+    </div>
+
+    <div class="work-card" data-category="graphic" onclick="openLightbox(this)">
+      <div class="img-wrap">
+        <div class="img-placeholder"><span class="ph-icon">📄</span>graphic-design-3.jpg</div>
+      </div>
+      <div class="card-info">
+        <span class="work-tag">Graphic Design</span>
+        <div class="work-title">Print &amp; Publication</div>
+      </div>
+    </div>
+
+    <div class="work-card" data-category="web" onclick="openLightbox(this)">
+      <div class="img-wrap">
+        <div class="img-placeholder"><span class="ph-icon">📱</span>web-ui-2.jpg</div>
+      </div>
+      <div class="card-info">
+        <span class="work-tag">Web / UI</span>
+        <div class="work-title">Mobile App UI</div>
+      </div>
+    </div>
+
+    <div class="work-card" data-category="branding" onclick="openLightbox(this)">
+      <div class="img-wrap">
+        <div class="img-placeholder"><span class="ph-icon">🏷️</span>branding-2.jpg</div>
+      </div>
+      <div class="card-info">
+        <span class="work-tag">Branding</span>
+        <div class="work-title">Brand Guidelines</div>
+      </div>
+    </div>
+
+    <div class="work-card" data-category="photo" onclick="openLightbox(this)">
+      <div class="img-wrap">
+        <div class="img-placeholder"><span class="ph-icon">📷</span>photography-3.jpg</div>
+      </div>
+      <div class="card-info">
+        <span class="work-tag">Photography</span>
+        <div class="work-title">Event Photography</div>
+      </div>
+    </div>
+
+    <div class="work-card" data-category="graphic" onclick="openLightbox(this)">
+      <div class="img-wrap">
+        <div class="img-placeholder"><span class="ph-icon">🎭</span>graphic-design-4.jpg</div>
+      </div>
+      <div class="card-info">
+        <span class="work-tag">Graphic Design</span>
+        <div class="work-title">Digital Illustration</div>
+      </div>
+    </div>
+
+    <div class="work-card" data-category="web" onclick="openLightbox(this)">
+      <div class="img-wrap">
+        <div class="img-placeholder"><span class="ph-icon">🖥️</span>web-ui-3.jpg</div>
+      </div>
+      <div class="card-info">
+        <span class="work-tag">Web / UI</span>
+        <div class="work-title">Dashboard Design</div>
+      </div>
+    </div>
+
+  </div><!-- /gallery-grid -->
+
+  <!-- How to add images hint -->
+  <div class="upload-hint" style="margin: 3rem 0 0;">
+    <h3>Adding Your Work</h3>
+    <p style="margin-top:0.5rem; font-size:0.88rem;">
+      Create an <code>images/</code> folder in your GitHub repo and upload your design files there.
+      Then replace the placeholder text in each card with <code>&lt;img src="images/filename.jpg" /&gt;</code>.
+    </p>
+  </div>
+
+</section>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <div class="lightbox-inner">
+    <button class="lb-close" onclick="closeLightbox()">✕</button>
+    <img id="lb-img" src="" alt="" />
+    <div class="lightbox-meta">
+      <h3 id="lb-title"></h3>
+      <span id="lb-tag"></span>
+    </div>
+  </div>
+</div>
+
+<!-- SKILLS -->
+<section class="skills" id="skills">
+  <div class="section-header">
+    <div>
+      <div class="section-tag">Capabilities</div>
+      <h2 class="section-title">Design<br/>Skills</h2>
+    </div>
+    <div class="section-count">02</div>
+  </div>
+
+  <div class="skills-grid">
+    <div class="skill-card" data-num="01">
+      <div class="skill-icon">🎨</div>
+      <div class="skill-name">Graphic Design</div>
+      <div class="skill-desc">Visually compelling designs for both digital and print media — bringing creativity and precision to every project.</div>
+    </div>
+    <div class="skill-card" data-num="02">
+      <div class="skill-icon">📸</div>
+      <div class="skill-name">Photography</div>
+      <div class="skill-desc">High-quality images that emphasise unique perspectives and creative lighting — from portraits to landscapes and events.</div>
+    </div>
+    <div class="skill-card" data-num="03">
+      <div class="skill-icon">🌐</div>
+      <div class="skill-name">Web Design</div>
+      <div class="skill-desc">Responsive, dynamic websites that are both visually appealing and technically robust across all devices.</div>
+    </div>
+    <div class="skill-card" data-num="04">
+      <div class="skill-icon">📱</div>
+      <div class="skill-name">Social Media</div>
+      <div class="skill-desc">Platform management, content design, analytics and coordinating creative teams to boost brand engagement and consistency.</div>
+    </div>
+    <div class="skill-card" data-num="05">
+      <div class="skill-icon">🏷️</div>
+      <div class="skill-name">Branding &amp; Identity</div>
+      <div class="skill-desc">Crafting cohesive brand identities — logos, colour systems, typography, and guidelines that make brands memorable.</div>
+    </div>
+    <div class="skill-card" data-num="06">
+      <div class="skill-icon">💡</div>
+      <div class="skill-name">Creative Direction</div>
+      <div class="skill-desc">Leading creative projects from concept to delivery with a clear vision, strong communication, and attention to detail.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div>
+    <div class="section-tag">Get In Touch</div>
+    <h2>Let's create something <em>great</em> together</h2>
+    <p>
+      Based in Lusaka, Zambia — open to freelance projects, collaborations, and full-time opportunities
+      in design, photography, or digital creative work.
+    </p>
+  </div>
+  <div class="contact-links">
+    <a class="contact-link" href="mailto:chikondeimmanuel@gmail.com">
+      <span class="cl-icon">✉️</span>
+      <div>
+        <strong>Email</strong>
+        <span>chikondeimmanuel@gmail.com</span>
+      </div>
+    </a>
+    <a class="contact-link" href="tel:+260970553244">
+      <span class="cl-icon">📞</span>
+      <div>
+        <strong>Phone</strong>
+        <span>+260 970 553 244</span>
+      </div>
+    </a>
+    <a class="contact-link" href="https://chikobanana.github.io/ChikoTech/" target="_blank" rel="noopener">
+      <span class="cl-icon">🌐</span>
+      <div>
+        <strong>Website</strong>
+        <span>chikobanana.github.io/ChikoTech</span>
+      </div>
+    </a>
+    <a class="contact-link" href="https://www.linkedin.com/in/immanuel-chikonde" target="_blank" rel="noopener">
+      <span class="cl-icon">🔗</span>
+      <div>
+        <strong>LinkedIn</strong>
+        <span>Immanuel Chikonde</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 Immanuel Chikonde — Lusaka, Zambia</p>
+  <p>Built for <a href="https://pages.github.com" target="_blank">GitHub Pages</a></p>
+</footer>
+
+<script>
+  /* ── FILTER ── */
+  function filterGallery(cat, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.work-card').forEach(card => {
+      if (cat === 'all' || card.dataset.category === cat) {
+        card.classList.remove('hidden');
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+  }
+
+  /* ── LIGHTBOX ── */
+  function openLightbox(card) {
+    const img = card.querySelector('img');
+    const title = card.querySelector('.work-title').textContent;
+    const tag = card.querySelector('.work-tag').textContent;
+    const lb = document.getElementById('lightbox');
+
+    if (img) {
+      document.getElementById('lb-img').src = img.src;
+      document.getElementById('lb-img').alt = title;
+      document.getElementById('lb-img').style.display = 'block';
+    } else {
+      document.getElementById('lb-img').style.display = 'none';
+    }
+    document.getElementById('lb-title').textContent = title;
+    document.getElementById('lb-tag').textContent = tag;
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox(e) {
+    if (!e || e.target === document.getElementById('lightbox') || e.target.classList.contains('lb-close')) {
+      document.getElementById('lightbox').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  }
+
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox({ target: document.getElementById('lightbox') }); });
+</script>
+</body>
+</html>
